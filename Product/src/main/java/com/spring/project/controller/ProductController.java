@@ -1,6 +1,7 @@
 package com.spring.project.controller;
 
 import com.spring.project.dto.ProductDto;
+import com.spring.project.dto.ShoppingCartDto;
 import com.spring.project.model.Product;
 import com.spring.project.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,11 @@ public class ProductController {
     @GetMapping("/all")
     public ResponseEntity<List<ProductDto>> getAll(){
         return ResponseEntity.ok(productService.getAll());
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<ShoppingCartDto>> getUserShoppingCart(@PathVariable String id){
+        return ResponseEntity.ok(productService.getUserSC(id));
     }
 }
