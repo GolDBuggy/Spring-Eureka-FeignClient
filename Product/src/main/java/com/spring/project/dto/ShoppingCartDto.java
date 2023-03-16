@@ -16,7 +16,10 @@ public class ShoppingCartDto {
 
     private String seller_id;
 
-    private String user_id;
+    private String userId;
 
 
+    public ShoppingCartDto(String product) {
+        this.product = product;
+    }
 }

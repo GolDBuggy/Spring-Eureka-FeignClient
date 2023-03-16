@@ -18,11 +18,11 @@ public class ShoppingCartDto {
 
     private String seller_id;
 
-    private String user_id;
+    private String userId;
 
     public ShoppingCartDto(ShoppingCart cart) {
         this.product = cart.getProduct();
         this.seller_id = cart.getSeller_id();
-        this.user_id = cart.getUser_id();
+        this.userId=cart.getUserId();
     }
 }

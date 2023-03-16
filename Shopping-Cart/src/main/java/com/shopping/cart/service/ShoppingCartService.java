@@ -19,15 +19,19 @@ public class ShoppingCartService {
 
     public ShoppingCartDto save(ShoppingCartDto cartDto){
         ShoppingCart shoppingCart=ShoppingCart.builder().product(cartDto.getProduct())
-                .seller_id(cartDto.getSeller_id()).user_id(cartDto.getUser_id()).build();
+                .seller_id(cartDto.getSeller_id()).userId(cartDto.getUserId()).build();
         cartRepository.save(shoppingCart);
         return cartDto;
     }
 
 
     public List<ShoppingCartDto> getProductsByUserId(String id){
-        return cartRepository.getShoppingCartByUser_id(id).stream().map(
-                c -> new ShoppingCartDto(c)
-        ).collect(Collectors.toList());
+        List<ShoppingCart> shoppingCarts=cartRepository.findShoppingCartsByUserId(id);
+        if(shoppingCarts.isEmpty())
+            throw new RuntimeException("Empty!");
+
+        return cartRepository.findShoppingCartsByUserId(id).
+                stream().
+                map(e -> new ShoppingCartDto(e)).collect(Collectors.toList());
     }
 }

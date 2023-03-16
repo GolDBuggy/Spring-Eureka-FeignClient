@@ -32,7 +32,7 @@ public class ShoppingCart {
 
 
     @Column(name = "user_id")
-    private String user_id;
+    private String userId;
 
 
 }
