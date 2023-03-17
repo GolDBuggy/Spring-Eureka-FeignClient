@@ -13,7 +13,18 @@ public class ProductExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ErrorResponse> userNotFoundExc(UserNotFoundException exc){
         return new ResponseEntity<>(new ErrorResponse
-                (exc.getMessage(),HttpStatus.NOT_FOUND.value(), LocalDateTime.now().toString()),
+                (exc.getMessage(), HttpStatus.NOT_FOUND.value(), LocalDateTime.now().toString()),
                 HttpStatus.NOT_FOUND);
     }
+
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorResponse> userNotFoundExc(RuntimeException exc){
+        return new ResponseEntity<>(new ErrorResponse
+                (exc.getMessage(), HttpStatus.BAD_REQUEST.value(), LocalDateTime.now().toString()),
+                HttpStatus.BAD_REQUEST);
+    }
+
+
+
 }

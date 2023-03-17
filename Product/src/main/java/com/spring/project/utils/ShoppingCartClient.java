@@ -27,7 +27,7 @@ public interface ShoppingCartClient {
 
 
     default ResponseEntity<List<?>> shoppingCartFallBack(String id, Exception e){
-        return ResponseEntity.ok(List.of(id,e.getMessage()));
+        return ResponseEntity.ok(List.of(id+" not found!",e.getMessage()));
     }
 
 

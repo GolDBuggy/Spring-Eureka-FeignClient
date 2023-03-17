@@ -1,0 +1,29 @@
+server:
+  port: 8181
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: gateway-eureka
+  cloud:
+    gateway:
+      routes:
+        - id: product-server
+          uri: lb://product-server
+          predicates:
+            - Path=/product/**
+
+        - id: cart-service
+          uri: lb://cart-service
+          predicates:
+            - Path=/shopping/cart/**
+      discovery:
+        locator:
+          enabled: true

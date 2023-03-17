@@ -10,11 +10,13 @@
         <module name="Eureka-Server" />
         <module name="Product" />
         <module name="shopping-cart" />
+        <module name="Gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Eureka-Example-Project" target="19" />
       <module name="Eureka-Server" target="19" />
+      <module name="Gateway" target="19" />
       <module name="Product" target="19" />
       <module name="shopping-cart" target="19" />
     </bytecodeTargetLevel>
@@ -23,6 +25,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Eureka-Example-Project" options="-parameters" />
       <module name="Eureka-Server" options="-parameters" />
+      <module name="Gateway" options="-parameters" />
       <module name="Product" options="-parameters" />
       <module name="shopping-cart" options="-parameters" />
     </option>
