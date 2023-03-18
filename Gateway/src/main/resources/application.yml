@@ -11,19 +11,29 @@ eureka:
 
 spring:
   application:
-    name: gateway-eureka
+    name: gateway
   cloud:
     gateway:
       routes:
-        - id: product-server
-          uri: lb://product-server
-          predicates:
-            - Path=/product/**
-
         - id: cart-service
           uri: lb://cart-service
           predicates:
             - Path=/shopping/cart/**
+          filters:
+            - JwtFilter
+
+        - id: product-server
+          uri: lb://product-server
+          predicates:
+            - Path=/product/**
+          filters:
+            - JwtFilter
+
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/login,/register
+
       discovery:
         locator:
           enabled: true

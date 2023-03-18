@@ -10,6 +10,7 @@
         <module name="Eureka-Server" />
         <module name="Product" />
         <module name="shopping-cart" />
+        <module name="UserService" />
         <module name="Gateway" />
       </profile>
     </annotationProcessing>
@@ -19,6 +20,7 @@
       <module name="Gateway" target="19" />
       <module name="Product" target="19" />
       <module name="shopping-cart" target="19" />
+      <module name="UserService" target="19" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -27,6 +29,7 @@
       <module name="Eureka-Server" options="-parameters" />
       <module name="Gateway" options="-parameters" />
       <module name="Product" options="-parameters" />
+      <module name="UserService" options="-parameters" />
       <module name="shopping-cart" options="-parameters" />
     </option>
   </component>
