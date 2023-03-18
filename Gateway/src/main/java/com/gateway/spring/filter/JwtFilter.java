@@ -1,53 +1,54 @@
 package com.gateway.spring.filter;
 
 import org.springframework.cloud.gateway.filter.GatewayFilter;
+import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 @Component
-public class JwtFilter extends AbstractGatewayFilterFactory<JwtFilter.Config> {
+public class JwtFilter implements GatewayFilter{
 
 
     private final Router router;
     private final JwtService jwtService;
 
     public JwtFilter(Router router, JwtService jwtService) {
-        super(Config.class);
         this.router = router;
         this.jwtService = jwtService;
     }
 
 
+
+
     @Override
-    public GatewayFilter apply(Config config) {
-        final String[] token={null};
-        return ((exchange, chain) ->{
-            if(router.securedUrls.test(exchange.getRequest())){
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        String token=null;
 
-                if(!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)){
-                    throw new RuntimeException("Header not found!");
-                }
+        if(router.securedUrls.test(exchange.getRequest())){
 
-                String auth=exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-                if (auth!=null&& auth.startsWith("Bearer ")){
-                    token[0] =auth.substring(7);
-                }
-
-                if(!jwtService.validateToken(token[0])){
-                    throw new RuntimeException("Token is invalid!");
-                }
-
-
+            if(!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)){
+                throw new RuntimeException("Header not found!");
             }
-            return chain.filter(exchange);
-        });
+
+            String auth=exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
+            if (auth!=null&& auth.startsWith("Bearer ")){
+                token =auth.substring(7);
+            }
+
+            if(!jwtService.validateToken(token)){
+                throw new RuntimeException("Token is invalid!");
+            }
+
+
+        }
+        return chain.filter(exchange);
+
     }
 
 
-    public static class Config{
-
-    }
 
 
 }
