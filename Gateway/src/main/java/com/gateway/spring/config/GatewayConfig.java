@@ -18,6 +18,9 @@ public class GatewayConfig {
     @Bean
     public RouteLocator locator(RouteLocatorBuilder builder) {
         return builder.routes().route("product-server",p->p.path("/product/**").
-                filters(f -> f.filter(jwtFilter)).uri("lb://product-server")).build();
+                filters(f -> f.filter(jwtFilter)).uri("lb://product-server")).
+                route("cart-service",p -> p.path("/shopping/cart/**").
+                        filters(f -> f.filter(jwtFilter)).uri("lb://cart-service"))
+                .build();
     }
 }
